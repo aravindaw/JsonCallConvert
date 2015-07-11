@@ -1,6 +1,7 @@
 package com.example.aravinda.smscandroid_app;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ public class MainActivity extends ActionBarActivity
     private Button btnSMSC, btnESME;
     private EditText inputSmscName, inputEsmeName;
     private TextView dispRes;
+    private String url = "http://ip.jsontest.com/";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,6 +124,7 @@ public class MainActivity extends ActionBarActivity
         switch (v.getId()) {
             case R.id.btnSMSC:
                 dispRes.setText("SMSC status");
+                System.out.println(new AsyncTasksManager().execute(url));
                 break;
             case R.id.btnESME:
                 dispRes.setText("ESME status");

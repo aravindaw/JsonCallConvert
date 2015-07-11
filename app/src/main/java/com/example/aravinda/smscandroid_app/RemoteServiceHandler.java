@@ -6,13 +6,11 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
-import java.util.Date;
 
 /**
  * Created by aravinda on 7/9/15.
@@ -20,37 +18,39 @@ import java.util.Date;
 
 public class RemoteServiceHandler {
     private InputStream inputStream;
-    private String url = "http://examples.javacodegeeks.com/android/core/view/onclicklistener/android-onclicklistener-example/";
 
-    public String HttpClient() {
+
+    public String HttpClient(String url) {
+
+        String result = null;
+        JsonDecoder jsonDecoder = new JsonDecoder();
+
         try {
-
             HttpClient client = new DefaultHttpClient();
             HttpResponse httpResponse = client.execute(new HttpGet(url));
             inputStream = httpResponse.getEntity().getContent();
-            Reader reader = new InputStreamReader(inputStream);
 
-            System.out.println(reader+"#############");
-
+            //input stream validation and converting
+            if (inputStream != null) {
+                Gson gson = new Gson();
+                BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
+                JsonDecoder obj = gson.fromJson(bufferedReader, JsonDecoder.class);
+                result = obj.toString();
+                System.out.println("################################"+result);
+//                result = jsonDecoder.decoder(inputStream);
+            } else{
+                result = "Not valid input Json";
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return null;
+        return result;
     }
 
-    public static String AsyncTasks() {
-        return null;
-    }
+//
+//    public String AsyncTasks (String url) {
+//        return HttpClient(url);
+//    }
 
-    public static String convertInputStreamToObjects() {
-        RemoteServiceHandler rServiceHadler = new RemoteServiceHandler();
-        Reader reader = new InputStreamReader(rServiceHadler.inputStream);
-
-        Gson gson = new Gson();
-        ModelObject modelObject1 = gson.fromJson(json, ModelObject.class);
-        gson.fromJson(reader, Date.class);
-
-
-        return null;
-    }
 }
+
