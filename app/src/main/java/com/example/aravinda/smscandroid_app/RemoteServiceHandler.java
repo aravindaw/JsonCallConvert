@@ -46,11 +46,5 @@ public class RemoteServiceHandler {
         }
         return result;
     }
-
-//
-//    public String AsyncTasks (String url) {
-//        return HttpClient(url);
-//    }
-
 }
 
