@@ -124,7 +124,7 @@ public class MainActivity extends ActionBarActivity
         switch (v.getId()) {
             case R.id.btnSMSC:
                 dispRes.setText("SMSC status");
-                System.out.println(new AsyncTasksManager().execute(url));
+                System.out.println(new AsyncTasksManager().execute(url)+"++++++++++++++++++++++++++++++++++");
                 break;
             case R.id.btnESME:
                 dispRes.setText("ESME status");
