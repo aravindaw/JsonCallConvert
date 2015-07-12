@@ -34,7 +34,8 @@ public class MainActivity extends ActionBarActivity
     private Button btnSMSC, btnESME;
     private EditText inputSmscName, inputEsmeName;
     private TextView dispRes;
-    private String url = "http://ip.jsontest.com/";
+//    private String url = "http://ip.jsontest.com/";
+    private String url = "http://validate.jsontest.com/?json=%5BJSON-code-to-validate%5D";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +125,9 @@ public class MainActivity extends ActionBarActivity
         switch (v.getId()) {
             case R.id.btnSMSC:
                 dispRes.setText("SMSC status");
-                System.out.println(new AsyncTasksManager().execute(url)+"++++++++++++++++++++++++++++++++++");
+                new AsyncTasksManager().execute(url);
+                JsonDecoder jsonDecoder = new JsonDecoder();
+                System.out.println(jsonDecoder.getObject_or_array());
                 break;
             case R.id.btnESME:
                 dispRes.setText("ESME status");
