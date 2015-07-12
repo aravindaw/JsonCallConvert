@@ -17,7 +17,6 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-
 public class MainActivity extends ActionBarActivity
 
         implements NavigationDrawerFragment.NavigationDrawerCallbacks, View.OnClickListener {

@@ -36,7 +36,6 @@ public class RemoteServiceHandler {
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
                 JsonDecoder obj = gson.fromJson(bufferedReader, JsonDecoder.class);
                 result = obj.toString();
-//                result = jsonDecoder.decoder(inputStream);
             } else {
                 result = "Not valid input Json";
             }

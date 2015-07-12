@@ -16,7 +16,6 @@ public class JsonDecoder {
 
 //    private List<String> ipList = new ArrayList<String>();
 
-
     @Override
     public String toString() {
         return "IP address" + object_or_array+" "+empty +" "+parse_time_nanoseconds +" "+validate +" "+size;
