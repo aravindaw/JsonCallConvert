@@ -32,9 +32,11 @@ public class MainActivity extends ActionBarActivity
     private CharSequence mTitle;
     private Button btnSMSC, btnESME;
     private EditText inputSmscName, inputEsmeName;
-    private TextView dispRes;
-//    private String url = "http://ip.jsontest.com/";
-    private String url = "http://validate.jsontest.com/?json=%5BJSON-code-to-validate%5D";
+    private TextView displayResponse;
+    //    private String url = "http://ip.jsontest.com/";
+//    private String url = "http://validate.jsontest.com/?json=%5BJSON-code-to-validate%5D";
+    private String url = "http://172.16.1.194:9999/status/smsc";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +45,7 @@ public class MainActivity extends ActionBarActivity
 
         mNavigationDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
+
         mTitle = getTitle();
 
         // Set up the drawer.
@@ -50,15 +53,19 @@ public class MainActivity extends ActionBarActivity
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
 
+
         btnSMSC = (Button) findViewById(R.id.btnSMSC);
         btnESME = (Button) findViewById(R.id.btnESME);
         inputSmscName = (EditText) findViewById(R.id.disSMSC);
         inputEsmeName = (EditText) findViewById(R.id.disESME);
-        dispRes = (TextView) findViewById(R.id.textView);
+        displayResponse = (TextView) findViewById(R.id.textView);
 
         btnSMSC.setOnClickListener(this);
         btnESME.setOnClickListener(this);
+
     }
+
+
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
@@ -123,13 +130,20 @@ public class MainActivity extends ActionBarActivity
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSMSC:
-                dispRes.setText("SMSC status");
-                new AsyncTasksManager().execute(url);
-                JsonDecoder jsonDecoder = new JsonDecoder();
-                System.out.println(jsonDecoder.getObject_or_array());
+                displayResponse.setText("SMSC status");
+                new AsyncTasksManager(new OnTaskCompleted() {
+                    @Override
+                    public void onTaskCompleted(String s) {
+                        System.out.println(s + "============================================");
+
+                    }
+                }).execute(url);
+//                System.out.println(testTask + "======================++++++++++++++++++=");
+//                AsyncTasksManager asyncTasksManager = new AsyncTasksManager();
+//                asyncTasksManager.onPreExecute();
                 break;
             case R.id.btnESME:
-                dispRes.setText("ESME status");
+                displayResponse.setText("ESME status");
                 break;
         }
 
@@ -174,5 +188,24 @@ public class MainActivity extends ActionBarActivity
                     getArguments().getInt(ARG_SECTION_NUMBER));
         }
     }
+
+//    public class AsyncTasksManager extends AsyncTask<String, Void, String> {
+//
+//        @Override
+//        protected String doInBackground(String... url) {
+//            return new RemoteServiceHandler().sendHttpRequest(url[0]);
+//        }
+//
+//        @Override
+//        protected void onPreExecute() {
+//            super.onPreExecute();
+//        }
+//
+//        @Override
+//        protected void onPostExecute(String result) {
+//            System.out.println(result);
+//            displayResponse.setText(result);
+//        }
+//    }
 
 }

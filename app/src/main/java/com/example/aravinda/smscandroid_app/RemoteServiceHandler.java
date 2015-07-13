@@ -20,10 +20,10 @@ public class RemoteServiceHandler {
     private InputStream inputStream;
 
 
-    public String HttpClient(String url) {
+    public String sendHttpRequest(String url) {
 
         String result = null;
-        JsonDecoder jsonDecoder = new JsonDecoder();
+        GetResponse getResponse = new GetResponse();
 
         try {
             HttpClient client = new DefaultHttpClient();
@@ -34,7 +34,7 @@ public class RemoteServiceHandler {
             if (inputStream != null) {
                 Gson gson = new Gson();
                 BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
-                JsonDecoder obj = gson.fromJson(bufferedReader, JsonDecoder.class);
+                GetResponse obj = gson.fromJson(bufferedReader, GetResponse.class);
                 result = obj.toString();
             } else {
                 result = "Not valid input Json";
@@ -42,7 +42,7 @@ public class RemoteServiceHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        System.out.println(result+"*****************************");
+//        System.out.println(result);
         return result;
     }
 }
